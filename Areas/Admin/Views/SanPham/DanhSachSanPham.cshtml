@@ -1,0 +1,42 @@
+﻿@model List<WebThucPham.Models.SanPham>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/layout-admin.cshtml";
+}
+
+<h2>List Product</h2>
+
+<div class="col-md-12">
+    <form>
+        <input placeholder="Năm sản xuất" type="number" name="namsx" value="@(ViewBag.namsx!=null ?ViewBag.namsx:"")"/>
+        <input placeholder="Đơn giá" type="number" name="donGiaLonHon"/>
+        <input placeholder="Đơn giá" type="number" name="donGiaNhoHon" />
+        <input placeholder="Tên sản phẩm" type="text" name="tenSanPham" />
+        <button>Tìm kiếm</button>
+    </form>
+</div>
+<hr />
+<div class="col-md-12">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="text-align:center">ID</th>
+                <th style="text-align:center">Tên sản phẩm</th>
+                <th style="text-align:center">Giá bán</th>
+                <th style="text-align:center">Năm sản xuất</th>
+                <th style="text-align:center">Mô tả</th>
+            </tr>
+        </thead>
+        <tbody>
+           @foreach(var item in Model)
+            {
+                <tr>
+                    <td style="text-align:center">@item.ID</td>
+                    <td style="text-align:left">@item.TenSanPham</td>
+                    <td style="text-align:right">@item.DonGia.ToString("#,0")</td>
+                    <td style="text-align:center">@item.NamSanXuat</td>
+                    <td style="text-align:left">@item.MoTa</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

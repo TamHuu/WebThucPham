@@ -117,9 +117,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin.cs" />
+    <Compile Include="AdminController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\SanPhamController.cs" />
+    <Compile Include="Areas\NhanVien\NhanVienAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -214,6 +219,10 @@
     <Content Include="assets\fonts\Linearicons-Free.ttf" />
     <Content Include="assets\fonts\Linearicons-Free.woff" />
     <Content Include="assets\fonts\Linearicons-Free.woff2" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\NhanVien\Views\web.config" />
+    <Content Include="Areas\Admin\Views\SanPham\DanhSachSanPham.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\layout-admin.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -244,6 +253,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\NhanVien\Controllers\" />
+    <Folder Include="Areas\NhanVien\Data\" />
+    <Folder Include="Areas\NhanVien\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
