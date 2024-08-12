@@ -13,8 +13,8 @@ namespace WebThucPham.Areas.Admin.Controllers
         public ActionResult DanhSachSanPham(int? namsx, double? donGiaLonHon, double? donGiaNhoHon, string tenSanPham)
         {
             ViewBag.namsx = namsx;
-            var danhSach = new SanPham().GetDanhSach();
-
+            KH2024_WebBanHangEntities db = new KH2024_WebBanHangEntities();
+            var danhSach = db.SanPhams.ToList();
             return View(danhSach);
         }
     }
