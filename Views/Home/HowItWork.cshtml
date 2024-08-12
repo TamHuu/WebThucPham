@@ -1,5 +1,7 @@
 ﻿@{ 
+    ViewBag.title = "How its work";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.menu = "Work";
 }
 
 <!--works start -->
@@ -7,7 +9,7 @@
     <div class="container">
         <div class="section-header">
             <h2>how it works</h2>
-            <p>Learn More about how our website works</p>
+            <p> @TempData["How"]</p>
         </div><!--/.section-header-->
         <div class="works-content">
             <div class="row">

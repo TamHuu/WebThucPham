@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebThucPham.Models;
 
 namespace WebThucPham.Controllers
 {
@@ -10,6 +11,8 @@ namespace WebThucPham.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.XinChao = "Welcome to C#";
+            TempData["How"] = "Làm bài nè";
             return View();
         }
 
@@ -32,8 +35,16 @@ namespace WebThucPham.Controllers
         }
         public ActionResult Explore()
         {
+            var listSP = new List<SanPham>();
+            for (int i = 1; i<=6; i++)
+            {
+                var sanPham1 = new SanPham();
+                sanPham1.ID = i;
+                sanPham1.TenSanPham = "Apple DaLas" + i;
+                listSP.Add(sanPham1);
+            }    
 
-            return View();
+            return View(listSP);
         }
     }
 }

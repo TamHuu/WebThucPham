@@ -50,7 +50,7 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    <title>@ViewBag.title</title>
 </head>
 <body>
 
@@ -121,9 +121,9 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="  active"><a href="~/Home/Index">home</a></li>
-                        <li class=""><a href="~/Home/HowItWork">how it works</a></li>
-                        <li class=""><a href="~/Home/Explore">explore</a></li>
+                        <li class="@(ViewBag.menu=="Home"?"active":"")"><a href="~/Home/Index">home</a></li>
+                        <li class="@(ViewBag.menu=="Work"?"active":"")"><a href="~/Home/HowItWork">how it works</a></li>
+                        <li class="@(ViewBag.menu=="Exp"?"active":"")"><a href="~/Home/Explore">explore</a></li>
                         <li class=""><a href="#reviews">review</a></li>
                         <li class=""><a href="#blog">blog</a></li>
                         <li class=""><a href="#contact">contact</a></li>
@@ -141,7 +141,7 @@
         <div class="container">
             <div class="subscribe-title text-center">
                 <h2>
-                    do you want to add your business listing with us?
+                    @ViewBag.XinChao
                 </h2>
                 <p>
                     Listrace offer you to list your business with us and we very much able to promote your Business.
