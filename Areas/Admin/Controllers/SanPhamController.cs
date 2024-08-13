@@ -32,13 +32,16 @@ namespace WebThucPham.Areas.Admin.Controllers
 
             // Dùng store proc
             var kq2 = db.spSanPham(namsx, donGiaLonHon, donGiaNhoHon, tenSanPham).ToList();
-            return View(kq2);
+            return View(kqTimKiem);
         }
         public ActionResult ThemMoi()
         {
             SanPham spMoi = new SanPham();
             spMoi.NamSanXuat = DateTime.Now.Year;
             spMoi.DonGia = 0;
+            spMoi.ThoiGianTao = DateTime.Now;
+            spMoi.PhanLoai = "Loại 2";
+            spMoi.HetHang = true;
             return View(spMoi);
         }
         [HttpPost]
@@ -49,6 +52,7 @@ namespace WebThucPham.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("TenSanPham", "Thiếu tên sản phẩm");
                 ModelState.AddModelError("MoTa", "Thiếu mô tả");
+                ModelState.AddModelError("NamSanXuat", "Thiếu năm sản xuất");
                 return View();
             }
             // Bước 2: Khai báo đối  tượng và gán giá trị

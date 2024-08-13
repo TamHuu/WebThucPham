@@ -1,4 +1,4 @@
-﻿@model List<WebThucPham.Models.spSanPham_Result>
+﻿@model List<WebThucPham.Models.SanPham>
 @{
     Layout = "~/Areas/Admin/Views/Shared/layout-admin.cshtml";
 }
@@ -28,10 +28,16 @@
                 <th style="text-align:center">Giá bán</th>
                 <th style="text-align:center">Năm sản xuất</th>
                 <th style="text-align:center">Mô tả</th>
+                <th style="text-align:center">Thời gian tạo</th>
+                <th style="text-align:center">Phân loại</th>
+                <th style="text-align:center">Màu sác</th>
+                <th style="text-align:center">Hết hàng</th>
+                <th style="text-align:center">Email NCC</th>
+                <th style="text-align:center">ĐT NCC</th>
             </tr>
         </thead>
         <tbody>
-           @foreach(var item in Model)
+            @foreach (var item in Model.OrderByDescending(m=>m.ID))
             {
                 <tr>
                     <td style="text-align:center">@item.ID</td>
@@ -39,6 +45,14 @@
                     <td style="text-align:right">@((item.DonGia ?? 0).ToString("#,0"))</td>
                     <td style="text-align:center">@item.NamSanXuat</td>
                     <td style="text-align:left">@item.MoTa</td>
+                    <td style="text-align:left">@item.ThoiGianTao</td>
+                    <td style="text-align:left">@item.PhanLoai</td>
+                    <td style="text-align:left">
+                        <span style="background:  @item.MauSac">  @item.MauSac</span>
+                    </td>
+                    <td style="text-align:left">@item.HetHang</td>
+                    <td style="text-align:left;white-space:break-spaces;word-break:break-word">@item.EmailNCC</td>
+                    <td style="text-align:left">@item.SoDienThoaiNCC</td>
                 </tr>
             }
         </tbody>

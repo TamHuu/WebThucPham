@@ -14,6 +14,12 @@
           <Property Name="NamSanXuat" Type="int" />
           <Property Name="DonGia" Type="float" />
           <Property Name="MoTa" Type="nvarchar" MaxLength="200" />
+          <Property Name="ThoiGianTao" Type="datetime" />
+          <Property Name="MauSac" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhanLoai" Type="nvarchar" MaxLength="500" />
+          <Property Name="HetHang" Type="bit" />
+          <Property Name="EmailNCC" Type="nvarchar" MaxLength="500" />
+          <Property Name="SoDienThoaiNCC" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <Function Name="spSanPham" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="namsx" Type="int" Mode="In" />
@@ -28,6 +34,22 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="KH2024_WebBanHangModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="KH2024_WebBanHangEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="spSanPham" ReturnType="Collection(KH2024_WebBanHangModel.spSanPham_Result)">
+            <Parameter Name="namsx" Mode="In" Type="Int32" />
+            <Parameter Name="donGiaLonHon" Mode="In" Type="Double" />
+            <Parameter Name="donGiaNhoHon" Mode="In" Type="Double" />
+            <Parameter Name="tenSanPham" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="SanPhams" EntityType="KH2024_WebBanHangModel.SanPham" />
+        </EntityContainer>
+        <ComplexType Name="spSanPham_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="TenSanPham" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="NamSanXuat" Nullable="true" />
+          <Property Type="Double" Name="DonGia" Nullable="true" />
+          <Property Type="String" Name="MoTa" Nullable="true" MaxLength="200" />
+        </ComplexType>
         <EntityType Name="SanPham">
           <Key>
             <PropertyRef Name="ID" />
@@ -37,40 +59,19 @@
           <Property Name="NamSanXuat" Type="Int32" />
           <Property Name="DonGia" Type="Double" />
           <Property Name="MoTa" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ThoiGianTao" Type="DateTime" Precision="3" />
+          <Property Name="MauSac" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhanLoai" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="HetHang" Type="Boolean" />
+          <Property Name="EmailNCC" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SoDienThoaiNCC" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="KH2024_WebBanHangEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="SanPhams" EntityType="Self.SanPham" />
-          <FunctionImport Name="spSanPham" ReturnType="Collection(KH2024_WebBanHangModel.spSanPham_Result)">
-            <Parameter Name="namsx" Mode="In" Type="Int32" />
-            <Parameter Name="donGiaLonHon" Mode="In" Type="Double" />
-            <Parameter Name="donGiaNhoHon" Mode="In" Type="Double" />
-            <Parameter Name="tenSanPham" Mode="In" Type="String" />
-          </FunctionImport>
-        </EntityContainer>
-        <ComplexType Name="spSanPham_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="TenSanPham" Nullable="true" MaxLength="200" />
-          <Property Type="Int32" Name="NamSanXuat" Nullable="true" />
-          <Property Type="Double" Name="DonGia" Nullable="true" />
-          <Property Type="String" Name="MoTa" Nullable="true" MaxLength="200" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="KH2024_WebBanHangModelStoreContainer" CdmEntityContainer="KH2024_WebBanHangEntities">
-          <EntitySetMapping Name="SanPhams">
-            <EntityTypeMapping TypeName="KH2024_WebBanHangModel.SanPham">
-              <MappingFragment StoreEntitySet="SanPham">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="TenSanPham" ColumnName="TenSanPham" />
-                <ScalarProperty Name="NamSanXuat" ColumnName="NamSanXuat" />
-                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
-                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="spSanPham" FunctionName="KH2024_WebBanHangModel.Store.spSanPham">
             <ResultMapping>
               <ComplexTypeMapping TypeName="KH2024_WebBanHangModel.spSanPham_Result">
@@ -82,6 +83,23 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="SanPhams">
+            <EntityTypeMapping TypeName="KH2024_WebBanHangModel.SanPham">
+              <MappingFragment StoreEntitySet="SanPham">
+                <ScalarProperty Name="SoDienThoaiNCC" ColumnName="SoDienThoaiNCC" />
+                <ScalarProperty Name="EmailNCC" ColumnName="EmailNCC" />
+                <ScalarProperty Name="HetHang" ColumnName="HetHang" />
+                <ScalarProperty Name="PhanLoai" ColumnName="PhanLoai" />
+                <ScalarProperty Name="MauSac" ColumnName="MauSac" />
+                <ScalarProperty Name="ThoiGianTao" ColumnName="ThoiGianTao" />
+                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+                <ScalarProperty Name="NamSanXuat" ColumnName="NamSanXuat" />
+                <ScalarProperty Name="TenSanPham" ColumnName="TenSanPham" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

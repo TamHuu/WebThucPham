@@ -19,5 +19,11 @@ namespace WebThucPham.Models
         public Nullable<int> NamSanXuat { get; set; }
         public Nullable<double> DonGia { get; set; }
         public string MoTa { get; set; }
+        public Nullable<System.DateTime> ThoiGianTao { get; set; }
+        public string MauSac { get; set; }
+        public string PhanLoai { get; set; }
+        public Nullable<bool> HetHang { get; set; }
+        public string EmailNCC { get; set; }
+        public string SoDienThoaiNCC { get; set; }
     }
 }
