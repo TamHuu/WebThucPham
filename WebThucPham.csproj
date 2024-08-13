@@ -200,6 +200,16 @@
     <Content Include="assets\images\explore\person.png" />
     <Content Include="assets\images\welcome-hero\banner.jpg" />
     <Content Include="assets\img\controls.png" />
+    <Content Include="assets\img\Data\160481.jpg" />
+    <Content Include="assets\img\Data\291590.jpg" />
+    <Content Include="assets\img\Data\322887.png" />
+    <Content Include="assets\img\Data\37385.png" />
+    <Content Include="assets\img\Data\422391.jpg" />
+    <Content Include="assets\img\Data\673135.jpg" />
+    <Content Include="assets\img\Data\699000.jpg" />
+    <Content Include="assets\img\Data\73158.png" />
+    <Content Include="assets\img\Data\80922.png" />
+    <Content Include="assets\img\Data\908587.JPG" />
     <Content Include="assets\js\bootsnav.js" />
     <Content Include="assets\js\bootstrap.min.js" />
     <Content Include="assets\js\custom.js" />
@@ -276,6 +286,7 @@
     </Content>
     <Content Include="Areas\Admin\Views\SanPham\ThemMoi.cshtml" />
     <Content Include="Areas\Admin\Views\SanPham\CapNhat.cshtml" />
+    <Content Include="Areas\Admin\Views\SanPham\CapNhatAnh.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />

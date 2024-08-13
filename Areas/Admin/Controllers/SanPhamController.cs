@@ -122,21 +122,95 @@ namespace WebThucPham.Areas.Admin.Controllers
             return RedirectToAction("DanhSachSanPham");
         }
         #endregion
+
+        #region Xoá dữ liệu
         public ActionResult Xoa(int id)
         {
             //1. Tìm đối tượng cần xoá
             KH2024_WebBanHangEntities db = new KH2024_WebBanHangEntities();
             var sanPham = db.SanPhams.Find(id);
             //2.Xoá 
-            db.SanPhams.Remove(sanPham);  
+            db.SanPhams.Remove(sanPham);
             //3. Cập nhật sự thay đổi
             db.SaveChanges();
             //4.Chuyển sang trang danh sách sản phẩm
             return RedirectToAction("DanhSachSanPham");
         }
+        #endregion
+
+        #region Cập nhật ảnh
+        public ActionResult CapNhatAnh(int id)
+        {
+            using (var db = new KH2024_WebBanHangEntities())
+            {
+                var sanPham = db.SanPhams.Find(id);
+                if (sanPham == null)
+                {
+                    // Handle the case where the product is not found
+                    return HttpNotFound();
+                }
+                return View(sanPham);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CapNhatAnh(int id, HttpPostedFileBase file)
+        {
+            using (var db = new KH2024_WebBanHangEntities())
+            {
+                // Find the product
+                var sanPham = db.SanPhams.Find(id);
+                if (sanPham == null)
+                {
+                    return HttpNotFound();
+                }
+
+                // Check if a file was uploaded
+                if (file == null || file.ContentLength <= 0)
+                {
+                    ModelState.AddModelError("", "Vui lòng chọn một tệp hợp lệ.");
+                    return View(sanPham);
+                }
+
+                // Define the relative path for image storage
+                string relativePath = "/assets/img/Data/";
+                string ext = System.IO.Path.GetExtension(file.FileName);
+                string fileName2 = new Random().Next(1000, 1000000).ToString() + ext;
+
+                // Define the absolute path for the image
+                string rootPath = Server.MapPath(relativePath);
+                string savePath = System.IO.Path.Combine(rootPath, fileName2);
+
+                // Ensure the directory exists
+                if (!System.IO.Directory.Exists(rootPath))
+                {
+                    System.IO.Directory.CreateDirectory(rootPath);
+                }
+
+                try
+                {
+                    // Save the file
+                    file.SaveAs(savePath);
+
+                    // Update the product's image path in the database
+                    sanPham.EmailNCC = relativePath + fileName2;
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    // Handle the error
+                    ModelState.AddModelError("", "Lỗi khi lưu tệp: " + ex.Message);
+                    return View(sanPham);
+                }
+
+                return RedirectToAction("DanhSachSanPham");
+            }
+        }
+        #endregion
+
     }
 
 
-  
+
 
 }

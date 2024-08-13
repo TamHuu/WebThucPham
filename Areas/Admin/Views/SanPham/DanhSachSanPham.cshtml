@@ -52,12 +52,17 @@
                         <span style="background:  @item.MauSac">  @item.MauSac</span>
                     </td>
                     <td style="text-align:left">@item.HetHang</td>
-                    <td style="text-align:left;white-space:break-spaces;word-break:break-word">@item.EmailNCC</td>
+                    <td style="text-align:left">
+                    <img src="@item.EmailNCC" style="width:50px;height:50px"/>
+                    
+                    </td>
                     <td style="text-align:left">@item.SoDienThoaiNCC</td>
                     <td style="text-align:left;width:160px">
                         <a class="btn btn-info" href="/Admin/SanPham/CapNhat?id=@item.ID">Update</a>
                         <span> | </span>
                         <a href="javascript:void(0)" class="btn btn-danger" onclick="Delete(@item.ID)">Xoá</a>
+                        <span> | </span>
+                        <a  class="btn btn-secondary" href="/Admin/SanPham/CapNhatAnh?id=@item.ID">Cập nhật  ảnh</a>
                     </td>
                 </tr>
             }
