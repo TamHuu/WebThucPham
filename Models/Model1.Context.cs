@@ -28,6 +28,7 @@ namespace WebThucPham.Models
         }
     
         public virtual DbSet<SanPham> SanPhams { get; set; }
+        public virtual DbSet<KhachHang> KhachHangs { get; set; }
     
         public virtual ObjectResult<spSanPham_Result> spSanPham(Nullable<int> namsx, Nullable<double> donGiaLonHon, Nullable<double> donGiaNhoHon, string tenSanPham)
         {

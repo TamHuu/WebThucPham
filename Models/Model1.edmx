@@ -5,6 +5,25 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="KH2024_WebBanHangModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenKhachHang" Type="nvarchar" MaxLength="200" />
+          <Property Name="SoDienThoai" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
+          <Property Name="MaSoThue" Type="nvarchar" MaxLength="50" />
+          <Property Name="SoDKKD" Type="nvarchar" MaxLength="50" />
+          <Property Name="NguoiDaiDien" Type="nvarchar" MaxLength="200" />
+          <Property Name="ChucVu" Type="nvarchar" MaxLength="50" />
+          <Property Name="SoDienThoaiNDD" Type="nvarchar" MaxLength="50" />
+          <Property Name="TaiKhoanNganHang" Type="nvarchar" MaxLength="50" />
+          <Property Name="TenNganHang" Type="nvarchar" MaxLength="50" />
+          <Property Name="ChuTaiKhoan" Type="nvarchar" MaxLength="50" />
+          <Property Name="TenVietTat" Type="nvarchar" MaxLength="50" />
+          <Property Name="isDoanhNghiep" Type="bit" />
+        </EntityType>
         <EntityType Name="SanPham">
           <Key>
             <PropertyRef Name="ID" />
@@ -28,6 +47,7 @@
           <Parameter Name="tenSanPham" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="KH2024_WebBanHangModelStoreContainer">
+          <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SanPham" EntityType="Self.SanPham" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -42,6 +62,7 @@
             <Parameter Name="tenSanPham" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="SanPhams" EntityType="KH2024_WebBanHangModel.SanPham" />
+          <EntitySet Name="KhachHangs" EntityType="KH2024_WebBanHangModel.KhachHang" />
         </EntityContainer>
         <ComplexType Name="spSanPham_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -65,6 +86,25 @@
           <Property Name="HetHang" Type="Boolean" />
           <Property Name="EmailNCC" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="SoDienThoaiNCC" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenKhachHang" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SoDienThoai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MaSoThue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SoDKKD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NguoiDaiDien" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ChucVu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SoDienThoaiNDD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TaiKhoanNganHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TenNganHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ChuTaiKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TenVietTat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isDoanhNghiep" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -96,6 +136,26 @@
                 <ScalarProperty Name="DonGia" ColumnName="DonGia" />
                 <ScalarProperty Name="NamSanXuat" ColumnName="NamSanXuat" />
                 <ScalarProperty Name="TenSanPham" ColumnName="TenSanPham" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KhachHangs">
+            <EntityTypeMapping TypeName="KH2024_WebBanHangModel.KhachHang">
+              <MappingFragment StoreEntitySet="KhachHang">
+                <ScalarProperty Name="isDoanhNghiep" ColumnName="isDoanhNghiep" />
+                <ScalarProperty Name="TenVietTat" ColumnName="TenVietTat" />
+                <ScalarProperty Name="ChuTaiKhoan" ColumnName="ChuTaiKhoan" />
+                <ScalarProperty Name="TenNganHang" ColumnName="TenNganHang" />
+                <ScalarProperty Name="TaiKhoanNganHang" ColumnName="TaiKhoanNganHang" />
+                <ScalarProperty Name="SoDienThoaiNDD" ColumnName="SoDienThoaiNDD" />
+                <ScalarProperty Name="ChucVu" ColumnName="ChucVu" />
+                <ScalarProperty Name="NguoiDaiDien" ColumnName="NguoiDaiDien" />
+                <ScalarProperty Name="SoDKKD" ColumnName="SoDKKD" />
+                <ScalarProperty Name="MaSoThue" ColumnName="MaSoThue" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="TenKhachHang" ColumnName="TenKhachHang" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
