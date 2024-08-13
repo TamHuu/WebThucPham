@@ -10,9 +10,8 @@
 namespace WebThucPham.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class SanPham
+    public partial class spSanPham_Result
     {
         public int ID { get; set; }
         public string TenSanPham { get; set; }

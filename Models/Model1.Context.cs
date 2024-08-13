@@ -12,6 +12,8 @@ namespace WebThucPham.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class KH2024_WebBanHangEntities : DbContext
     {
@@ -26,5 +28,26 @@ namespace WebThucPham.Models
         }
     
         public virtual DbSet<SanPham> SanPhams { get; set; }
+    
+        public virtual ObjectResult<spSanPham_Result> spSanPham(Nullable<int> namsx, Nullable<double> donGiaLonHon, Nullable<double> donGiaNhoHon, string tenSanPham)
+        {
+            var namsxParameter = namsx.HasValue ?
+                new ObjectParameter("namsx", namsx) :
+                new ObjectParameter("namsx", typeof(int));
+    
+            var donGiaLonHonParameter = donGiaLonHon.HasValue ?
+                new ObjectParameter("donGiaLonHon", donGiaLonHon) :
+                new ObjectParameter("donGiaLonHon", typeof(double));
+    
+            var donGiaNhoHonParameter = donGiaNhoHon.HasValue ?
+                new ObjectParameter("donGiaNhoHon", donGiaNhoHon) :
+                new ObjectParameter("donGiaNhoHon", typeof(double));
+    
+            var tenSanPhamParameter = tenSanPham != null ?
+                new ObjectParameter("tenSanPham", tenSanPham) :
+                new ObjectParameter("tenSanPham", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spSanPham_Result>("spSanPham", namsxParameter, donGiaLonHonParameter, donGiaNhoHonParameter, tenSanPhamParameter);
+        }
     }
 }
