@@ -23,13 +23,66 @@ namespace WebThucPham.Models
             
             ).ToList();
         }
-        public void ThemMoi(KhachHang model)
+         public KhachHang ChiTiet(int id)
+        {
+            return db.KhachHangs.Find(id);
+        }
+
+        public bool ThemMoi(KhachHang model)
         {
             //1. Kiểm tra dữ liệu
-
+            if (string.IsNullOrEmpty(model.TenKhachHang) == true)
+            {
+                return false;
+            }  
+                
             //2. Thêm vào bảng
-
+            db.KhachHangs.Add(model);
             //3.Lưu database
+            db.SaveChanges(); 
+            return true;
+
+        }
+
+        public bool CapNhat(KhachHang model)
+        {
+            //1. Tìm đối tượng
+            var updateModel = db.KhachHangs.Find(model.ID);
+            if (updateModel == null) 
+            {
+                return false;
+            }
+            //2. Gán giá trị
+            updateModel.TenKhachHang = model.TenKhachHang;
+            updateModel.MaSoThue = model.MaSoThue;
+            updateModel.DiaChi = model.DiaChi;  
+            updateModel.SoDienThoai = model.SoDienThoai;
+            updateModel.NguoiDaiDien = model.NguoiDaiDien;  
+            updateModel.ChucVu = model.ChucVu;
+            updateModel.TenNganHang = model.TenNganHang;
+            updateModel.TenVietTat = model.TenVietTat; 
+            updateModel.SoDKKD = model.SoDKKD;  
+            updateModel.SoDienThoaiNDD = model.SoDienThoaiNDD;
+            updateModel.ChuTaiKhoan = model.ChuTaiKhoan;
+            updateModel.TaiKhoanNganHang = model.TaiKhoanNganHang;
+            //3. Lưu
+            db.SaveChanges();
+            return true;
+        }
+
+        public bool Xoa(int id)
+        {
+            //1. Tìm đối tượng
+            var updateModel = db.KhachHangs.Find(id);
+            if(updateModel == null)
+            {
+                return false;
+            }   
+            //2. Xoá
+            db.KhachHangs.Remove(updateModel);
+            //3.Lưu
+            db.SaveChanges();
+            return true;
         }
     }
 }
