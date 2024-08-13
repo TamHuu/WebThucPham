@@ -1,0 +1,107 @@
+﻿@model WebThucPham.Models.SanPham
+
+@{
+    ViewBag.Title = "Cập nhật sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/layout-admin.cshtml";
+}
+<div class="container">
+    <form action="/Admin/SanPham/CapNhat" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Cập nhật sản phẩm</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ID, new { htmlAttributes = new { @class = "form-control", type="hidden" } })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2" for="TenSanPham">Tên sản phẩm</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TenSanPham, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TenSanPham, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2" for="MoTa">Mô tả</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MoTa, new { htmlAttributes = new { @class = "form-control", } })
+                    @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group" style="align-items:center">
+                <label class="control-label col-md-2" for="DonGia">Đơn giá</label>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.DonGia, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                    @Html.ValidationMessageFor(model => model.DonGia, "", new { @class = "text-danger" })
+                </div>
+                <label class="control-label col-md-2" for="NamSanXuat">Năm sản xuất</label>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.NamSanXuat, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                    @Html.ValidationMessageFor(model => model.NamSanXuat, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <div class="form-group" style="align-items:center">
+                <label class="control-label col-md-2" for="ThoiGianTao">Thời gian tạo</label>
+                <div class="col-md-4">
+                    <input type="datetime-local"
+                           class="form-control"
+                           name="ThoiGianTao"
+                           value="@((Model.ThoiGianTao.HasValue ? Model.ThoiGianTao.Value.ToString("yyyy-MM-ddTHH:mm") : ""))" />
+                    @Html.ValidationMessageFor(model => model.ThoiGianTao, "", new { @class = "text-danger" })
+                </div>
+                <label class="control-label col-md-2" for="PhanLoai">Phân loại</label>
+                <div class="col-md-4">
+                    <select class="form-control" name="PhanLoai">
+                        <option value="Loại 1" @(Model.PhanLoai == "Loại 1" ? "selected" : "")>
+                            Loại 1
+                        </option>
+                        <option value="Loại 2" @(Model.PhanLoai == "Loại 2" ? "selected" : "")>Loại 2</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <label class="control-label col-md-2" for="EmailNCC">Email nhà cung cấp</label>
+                <div class="col-md-4">
+                    <input value="@(Model.EmailNCC)" type="email"
+                           name="EmailNCC" class="form-control">
+                </div>
+
+                <label class="control-label col-md-2" for="SoDienThoaiNCC">Điện thoại nhà cung cấp</label>
+                <div class="col-md-4">
+                    <input value="@(Model.SoDienThoaiNCC)" type="text"
+                           name="SoDienThoaiNCC" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label col-md-2" for="HetHang">Hết hàng</label>
+                <div class="col-md-4">
+                    <input @(Model.HetHang == true ? "checked" : "") type="checkbox"
+                           value="true" name="HetHang">
+                </div>
+                <label class="control-label col-md-2" for="MauSac">Màu sắc</label>
+                <div class="col-md-4">
+                    <input @(Model.MauSac) type="color"
+                           name="MauSac">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Update" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+
+
+

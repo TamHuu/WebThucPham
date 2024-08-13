@@ -25,7 +25,8 @@
     </nav>
 
     <div class="container">
-      @RenderBody()
+        @RenderBody()
+        @RenderSection("script", required: false)
     </div>
 
 </body>

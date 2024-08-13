@@ -24,20 +24,21 @@
         <thead>
             <tr>
                 <th style="text-align:center">ID</th>
-                <th style="text-align:center">Tên sản phẩm</th>
+                <th style="text-align:center">Tên SP</th>
                 <th style="text-align:center">Giá bán</th>
-                <th style="text-align:center">Năm sản xuất</th>
+                <th style="text-align:center">NSX</th>
                 <th style="text-align:center">Mô tả</th>
-                <th style="text-align:center">Thời gian tạo</th>
-                <th style="text-align:center">Phân loại</th>
-                <th style="text-align:center">Màu sác</th>
-                <th style="text-align:center">Hết hàng</th>
-                <th style="text-align:center">Email NCC</th>
+                <th style="text-align:center;width:114px">Thời gian tạo</th>
+                <th style="text-align:center;width:80px">Phân loại</th>
+                <th style="text-align:center;width:80px">Màu sắc</th>
+                <th style="text-align:center;width:100px">Hết hàng</th>
+                <th style="text-align:center;width:90px">Email NCC</th>
                 <th style="text-align:center">ĐT NCC</th>
+                <th style="text-align:center">Thao tác</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.OrderByDescending(m=>m.ID))
+            @foreach (var item in Model.OrderByDescending(m => m.ID))
             {
                 <tr>
                     <td style="text-align:center">@item.ID</td>
@@ -53,8 +54,31 @@
                     <td style="text-align:left">@item.HetHang</td>
                     <td style="text-align:left;white-space:break-spaces;word-break:break-word">@item.EmailNCC</td>
                     <td style="text-align:left">@item.SoDienThoaiNCC</td>
+                    <td style="text-align:left;width:160px">
+                        <a class="btn btn-info" href="/Admin/SanPham/CapNhat?id=@item.ID">Update</a>
+                        <span> | </span>
+                        <a href="javascript:void(0)" class="btn btn-danger" onclick="Delete(@item.ID)">Xoá</a>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
+@section script{
+
+
+    <script>
+
+        function Delete(id) {
+            if (confirm("Xoá dữ liệu?") == true) {
+                //Thực hiện xoá
+                location.href = "/Admin/SanPham/Xoa?id=" + id;
+            }
+            else {
+                //Không xoá
+            }
+        }
+    </script>
+
+}
