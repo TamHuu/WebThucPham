@@ -7,6 +7,10 @@
       <Diagram DiagramId="e420b14dc7014c1ca749d5c9b74001c7" Name="Diagram1">
         <EntityTypeShape EntityType="KH2024_WebBanHangModel.SanPham" Width="2.25" PointX="0.875" PointY="1.25" />
         <EntityTypeShape EntityType="KH2024_WebBanHangModel.KhachHang" Width="1.5" PointX="4.375" PointY="0.75" />
+        <EntityTypeShape EntityType="KH2024_WebBanHangModel.ChiTietDonHang" Width="1.5" PointX="8.875" PointY="1.25" />
+        <EntityTypeShape EntityType="KH2024_WebBanHangModel.DonHang" Width="1.5" PointX="6.625" PointY="1.375" />
+        <AssociationConnector Association="KH2024_WebBanHangModel.FK_ChiTietDonHang_DonHang" />
+        <AssociationConnector Association="KH2024_WebBanHangModel.FK_DonHang_KhachHang" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -29,6 +29,8 @@ namespace WebThucPham.Models
     
         public virtual DbSet<SanPham> SanPhams { get; set; }
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
+        public virtual DbSet<ChiTietDonHang> ChiTietDonHangs { get; set; }
+        public virtual DbSet<DonHang> DonHangs { get; set; }
     
         public virtual ObjectResult<spSanPham_Result> spSanPham(Nullable<int> namsx, Nullable<double> donGiaLonHon, Nullable<double> donGiaNhoHon, string tenSanPham)
         {
@@ -67,7 +69,5 @@ namespace WebThucPham.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spDanhSachDonHang2_Result>("spDanhSachDonHang2", ngayParameter, idKhachHangParameter, thongTinParameter);
         }
-
-        public System.Data.Entity.DbSet<WebThucPham.Models.spDanhSachDonHang2_Result> spDanhSachDonHang2_Result { get; set; }
     }
 }

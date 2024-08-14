@@ -30,7 +30,7 @@
 <div class="col-md-12">
     <table class="table">
         <tr>
-            <th>
+            <th> 
                 @Html.DisplayNameFor(model => model.STT)
             </th>
             <th>
@@ -58,7 +58,10 @@
                     @Html.DisplayFor(modelItem => item.STT)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TenKhachHang)
+                    <a href="~/Admin/DonHang/ChiTiet?idDonHang=@item.ID">
+                        @Html.DisplayFor(modelItem => item.TenKhachHang)
+                    </a>
+                 
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DienThoai)

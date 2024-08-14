@@ -14,10 +14,16 @@ namespace WebThucPham.Areas.Admin.Controllers
         {
             ViewBag.ngay = ngay;
             ViewBag.idKhachHang = idKhachHang;
-            ViewBag.thongTin = thongTin;    
+            ViewBag.thongTin = thongTin;
 
             // Tham số truyền từ view => action => hàm trong class map => hàm store sql
             return View(new mapDonHang().DanhSach(ngay, idKhachHang, thongTin));
+        }
+
+        public ActionResult ChiTiet(int idDonHang)
+        {
+            var donHang = new mapDonHang().ChiTiet(idDonHang);
+            return View(donHang);
         }
     }
 }

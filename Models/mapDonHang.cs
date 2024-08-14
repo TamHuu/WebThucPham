@@ -13,5 +13,10 @@ namespace WebThucPham.Models
         {
             return db.spDanhSachDonHang2(ngay, idKhachHang,thongTin).ToList();
         }
+
+        public DonHang ChiTiet(int idDonHang)
+        {
+            return db.DonHangs.Find(idDonHang);
+        }
     }
 }

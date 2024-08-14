@@ -12,30 +12,24 @@ namespace WebThucPham.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class KhachHang
+    public partial class DonHang
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public KhachHang()
+        public DonHang()
         {
-            this.DonHangs = new HashSet<DonHang>();
+            this.ChiTietDonHangs = new HashSet<ChiTietDonHang>();
         }
     
         public int ID { get; set; }
-        public string TenKhachHang { get; set; }
+        public Nullable<int> idKhachHang { get; set; }
+        public Nullable<System.DateTime> ThoiGianDat { get; set; }
+        public string NguoiNhan { get; set; }
         public string SoDienThoai { get; set; }
-        public string DiaChi { get; set; }
-        public string MaSoThue { get; set; }
-        public string SoDKKD { get; set; }
-        public string NguoiDaiDien { get; set; }
-        public string ChucVu { get; set; }
-        public string SoDienThoaiNDD { get; set; }
-        public string TaiKhoanNganHang { get; set; }
-        public string TenNganHang { get; set; }
-        public string ChuTaiKhoan { get; set; }
-        public string TenVietTat { get; set; }
-        public Nullable<bool> isDoanhNghiep { get; set; }
+        public string DiaChiNhan { get; set; }
+        public Nullable<int> TrangThai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DonHang> DonHangs { get; set; }
+        public virtual ICollection<ChiTietDonHang> ChiTietDonHangs { get; set; }
+        public virtual KhachHang KhachHang { get; set; }
     }
 }
