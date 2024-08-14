@@ -10,7 +10,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TenKhachHang" Type="nvarchar" MaxLength="200" />
+          <Property Name="TenKhachHang" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="SoDienThoai" Type="nvarchar" MaxLength="50" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
           <Property Name="MaSoThue" Type="nvarchar" MaxLength="50" />
@@ -40,6 +40,11 @@
           <Property Name="EmailNCC" Type="nvarchar" MaxLength="500" />
           <Property Name="SoDienThoaiNCC" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <Function Name="spDanhSachDonHang2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ngay" Type="datetime" Mode="In" />
+          <Parameter Name="idKhachHang" Type="int" Mode="In" />
+          <Parameter Name="thongTin" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="spSanPham" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="namsx" Type="int" Mode="In" />
           <Parameter Name="donGiaLonHon" Type="float" Mode="In" />
@@ -63,6 +68,11 @@
           </FunctionImport>
           <EntitySet Name="SanPhams" EntityType="KH2024_WebBanHangModel.SanPham" />
           <EntitySet Name="KhachHangs" EntityType="KH2024_WebBanHangModel.KhachHang" />
+          <FunctionImport Name="spDanhSachDonHang2" ReturnType="Collection(KH2024_WebBanHangModel.spDanhSachDonHang2_Result)">
+            <Parameter Name="ngay" Mode="In" Type="DateTime" />
+            <Parameter Name="idKhachHang" Mode="In" Type="Int32" />
+            <Parameter Name="thongTin" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spSanPham_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -92,7 +102,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenKhachHang" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TenKhachHang" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SoDienThoai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="MaSoThue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -106,6 +116,15 @@
           <Property Name="TenVietTat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="isDoanhNghiep" Type="Boolean" />
         </EntityType>
+        <ComplexType Name="spDanhSachDonHang2_Result">
+          <Property Type="Int64" Name="STT" Nullable="true" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="TenKhachHang" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DienThoai" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DiaChi" Nullable="true" MaxLength="500" />
+          <Property Type="Double" Name="TongTien" Nullable="true" />
+          <Property Type="String" Name="TrangThai" Nullable="false" MaxLength="14" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -160,6 +179,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spDanhSachDonHang2" FunctionName="KH2024_WebBanHangModel.Store.spDanhSachDonHang2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KH2024_WebBanHangModel.spDanhSachDonHang2_Result">
+                <ScalarProperty Name="STT" ColumnName="STT" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TenKhachHang" ColumnName="TenKhachHang" />
+                <ScalarProperty Name="DienThoai" ColumnName="DienThoai" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

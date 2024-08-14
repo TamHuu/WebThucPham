@@ -50,5 +50,24 @@ namespace WebThucPham.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spSanPham_Result>("spSanPham", namsxParameter, donGiaLonHonParameter, donGiaNhoHonParameter, tenSanPhamParameter);
         }
+    
+        public virtual ObjectResult<spDanhSachDonHang2_Result> spDanhSachDonHang2(Nullable<System.DateTime> ngay, Nullable<int> idKhachHang, string thongTin)
+        {
+            var ngayParameter = ngay.HasValue ?
+                new ObjectParameter("ngay", ngay) :
+                new ObjectParameter("ngay", typeof(System.DateTime));
+    
+            var idKhachHangParameter = idKhachHang.HasValue ?
+                new ObjectParameter("idKhachHang", idKhachHang) :
+                new ObjectParameter("idKhachHang", typeof(int));
+    
+            var thongTinParameter = thongTin != null ?
+                new ObjectParameter("thongTin", thongTin) :
+                new ObjectParameter("thongTin", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spDanhSachDonHang2_Result>("spDanhSachDonHang2", ngayParameter, idKhachHangParameter, thongTinParameter);
+        }
+
+        public System.Data.Entity.DbSet<WebThucPham.Models.spDanhSachDonHang2_Result> spDanhSachDonHang2_Result { get; set; }
     }
 }

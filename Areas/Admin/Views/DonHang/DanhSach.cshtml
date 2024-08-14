@@ -1,0 +1,85 @@
+﻿@model IEnumerable<WebThucPham.Models.spDanhSachDonHang2_Result>
+
+@{
+    ViewBag.Title = "DanhSach";
+    Layout = "~/Areas/Admin/Views/Shared/layout-admin.cshtml";
+}
+
+<h2>Danh sách đơn hàng</h2>
+
+<div class="col-md-12">
+    <form>
+        <input type="date" name="ngay" placeholder="Ngày" value="@((DateTime?)ViewBag.ngay)?.ToString(" yyyy-MM-dd")" />
+
+        <select name="idKhachHang">
+            <option value="">Tất cả</option>
+            @foreach (var item in new WebThucPham.Models.mapKhachHang().DanhSach(""))
+            {
+                <option value="@item.ID" @((int?)ViewBag.idKhachHang ==item.ID ? "selected":"")>
+                    @item.TenKhachHang | @item.SoDienThoai
+                </option>
+            }
+        </select>
+        <input placeholder="Thông tin khác" type="text" name="ThongTin" value="@(ViewBag.ThongTin)" />
+      <button>Tìm kiếm</button>
+        <a href="/Admin/SanPham/ThemMoi" class="btn btn-sm btn-success">Thêm mới</a>
+
+    </form>
+</div>
+<hr />
+<div class="col-md-12">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.STT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenKhachHang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DienThoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiaChi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TongTien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.STT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenKhachHang)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DienThoai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiaChi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TongTien)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrangThai)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>
