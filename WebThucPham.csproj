@@ -152,6 +152,7 @@
     <Compile Include="Models\mapChiTietDonHang.cs" />
     <Compile Include="Models\mapDonHang.cs" />
     <Compile Include="Models\mapKhachHang.cs" />
+    <Compile Include="Models\mapSanPham.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -306,6 +307,7 @@
     <Content Include="Areas\Admin\Views\SanPham\CapNhatAnh.cshtml" />
     <Content Include="Areas\Admin\Views\DonHang\DanhSach.cshtml" />
     <Content Include="Areas\Admin\Views\DonHang\ChiTiet.cshtml" />
+    <Content Include="Areas\Admin\Views\DonHang\ThemChiTiet.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />

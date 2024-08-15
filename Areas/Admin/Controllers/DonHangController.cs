@@ -25,5 +25,26 @@ namespace WebThucPham.Areas.Admin.Controllers
             var donHang = new mapDonHang().ChiTiet(idDonHang);
             return View(donHang);
         }
+
+        public ActionResult ThemChiTiet(int idDonHang)
+        {
+            var donHang = new mapDonHang().ChiTiet(idDonHang);
+            return View(new ChiTietDonHang() { idDonHang = idDonHang});
+        }
+
+        [HttpPost]
+        public ActionResult ThemChiTiet(ChiTietDonHang model)
+        {
+            var map = new mapChiTietDonHang().ThemMoi(model);
+            if(map>0)
+            {
+                return RedirectToAction("ChiTiet", new { idDonHang = model.idDonHang });
+            }
+            else
+            {
+                ModelState.AddModelError("", "Lỗi thông tin");
+                return View(model);
+            }
+        }
     }
 }
