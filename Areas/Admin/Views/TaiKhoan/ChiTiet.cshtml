@@ -1,0 +1,69 @@
+﻿@model WebThucPham.Models.TaiKhoan
+
+@{
+    ViewBag.Title = "ChiTiet";
+    Layout = "~/Areas/Admin/Views/Shared/layout-admin.cshtml";
+    var listQuyen = new WebThucPham.Models.mapPhanQuyenChucNang().QuyenTaiKhoan(Model.Username);
+    var listNhom = listQuyen.Select(m => m.NhomChucNang).Distinct();
+
+}
+
+<h2>Chi tiết tài khoản</h2>
+<div class="row">
+    <!-- Cột phân quyền -->
+    <div class="col-md-8">
+        <h4>Phân quyền</h4>
+        <hr />
+        <table class="table table-bordered">
+            @foreach (var nhom in listNhom)
+            {
+                var listCN = listQuyen.Where(m => m.NhomChucNang == nhom).ToList();
+
+                <tr>
+                    <td>@nhom</td>
+
+                    @foreach (var cn in listCN)
+                    {
+                        <td>
+                            <form action="@Url.Action("LuuPhanQuyen", "TaiKhoan", new { area = "Admin" })" id="@Model.Username-@cn.Code" autocomplete="off">
+                                <input type="hidden" name="username" value="@Model.Username" />
+                                <input type="hidden" name="chucnang" value="@cn.Code" />
+                                <input type="checkbox" @(cn.DaChon > 0 ? "checked" : "") value="true" name="check" onchange="this.form.submit()" />
+                                @cn.MoTa
+                            </form>
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<!-- Cột chi tiết tài khoản -->
+<div class="col-md-4">
+    <h4>Tài khoản</h4>
+    <hr />
+    <table class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>Mật khẩu</th>
+                <td>@Html.DisplayFor(model => model.Password)</td>
+            </tr>
+            <tr>
+                <th>Họ và tên</th>
+                <td>@Html.DisplayFor(model => model.HoVaTen)</td>
+            </tr>
+            <tr>
+                <th>Số điện thoại</th>
+                <td>@Html.DisplayFor(model => model.SoDienThoai)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.Username }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Quay lại danh sách", "Index", null, new { @class = "btn btn-secondary" })
+</p>
+

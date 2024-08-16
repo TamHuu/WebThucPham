@@ -19,6 +19,16 @@
           <Property Name="ThanhTien" Type="float" />
           <Property Name="DonViTinh" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="ChucNang">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="NhomChucNang" Type="nvarchar" MaxLength="100" />
+          <Property Name="Action" Type="nvarchar" MaxLength="100" />
+          <Property Name="Area" Type="nvarchar" MaxLength="100" />
+          <Property Name="MoTa" Type="nvarchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="DonHang">
           <Key>
             <PropertyRef Name="ID" />
@@ -50,6 +60,15 @@
           <Property Name="TenVietTat" Type="nvarchar" MaxLength="50" />
           <Property Name="isDoanhNghiep" Type="bit" />
         </EntityType>
+        <EntityType Name="PhanQuyenChucNang">
+          <Key>
+            <PropertyRef Name="Username" />
+            <PropertyRef Name="CodeChucNang" />
+          </Key>
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CodeChucNang" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="SanPham">
           <Key>
             <PropertyRef Name="ID" />
@@ -65,6 +84,15 @@
           <Property Name="HetHang" Type="bit" />
           <Property Name="EmailNCC" Type="nvarchar" MaxLength="500" />
           <Property Name="SoDienThoaiNCC" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TaiKhoan">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nchar" MaxLength="10" />
+          <Property Name="HoVaTen" Type="nvarchar" MaxLength="50" />
+          <Property Name="SoDienThoai" Type="nchar" MaxLength="10" />
         </EntityType>
         <Association Name="FK_ChiTietDonHang_DonHang">
           <End Role="DonHang" Type="Self.DonHang" Multiplicity="0..1">
@@ -92,10 +120,41 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PhanQuyenChucNang_ChucNang">
+          <End Role="ChucNang" Type="Self.ChucNang" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PhanQuyenChucNang" Type="Self.PhanQuyenChucNang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChucNang">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="PhanQuyenChucNang">
+              <PropertyRef Name="CodeChucNang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PhanQuyenChucNang_TaiKhoan">
+          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PhanQuyenChucNang" Type="Self.PhanQuyenChucNang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaiKhoan">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="PhanQuyenChucNang">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="spDanhSachDonHang2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ngay" Type="datetime" Mode="In" />
           <Parameter Name="idKhachHang" Type="int" Mode="In" />
           <Parameter Name="thongTin" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spQuyenTaiKhoan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="spSanPham" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="namsx" Type="int" Mode="In" />
@@ -105,9 +164,12 @@
         </Function>
         <EntityContainer Name="KH2024_WebBanHangModelStoreContainer">
           <EntitySet Name="ChiTietDonHang" EntityType="Self.ChiTietDonHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChucNang" EntityType="Self.ChucNang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DonHang" EntityType="Self.DonHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhanQuyenChucNang" EntityType="Self.PhanQuyenChucNang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SanPham" EntityType="Self.SanPham" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaiKhoan" EntityType="Self.TaiKhoan" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ChiTietDonHang_DonHang" Association="Self.FK_ChiTietDonHang_DonHang">
             <End Role="DonHang" EntitySet="DonHang" />
             <End Role="ChiTietDonHang" EntitySet="ChiTietDonHang" />
@@ -115,6 +177,14 @@
           <AssociationSet Name="FK_DonHang_KhachHang" Association="Self.FK_DonHang_KhachHang">
             <End Role="KhachHang" EntitySet="KhachHang" />
             <End Role="DonHang" EntitySet="DonHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PhanQuyenChucNang_ChucNang" Association="Self.FK_PhanQuyenChucNang_ChucNang">
+            <End Role="ChucNang" EntitySet="ChucNang" />
+            <End Role="PhanQuyenChucNang" EntitySet="PhanQuyenChucNang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PhanQuyenChucNang_TaiKhoan" Association="Self.FK_PhanQuyenChucNang_TaiKhoan">
+            <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+            <End Role="PhanQuyenChucNang" EntitySet="PhanQuyenChucNang" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -145,6 +215,20 @@
             <End Role="KhachHang" EntitySet="KhachHangs" />
             <End Role="DonHang" EntitySet="DonHangs" />
           </AssociationSet>
+          <EntitySet Name="ChucNangs" EntityType="KH2024_WebBanHangModel.ChucNang" />
+          <EntitySet Name="PhanQuyenChucNangs" EntityType="KH2024_WebBanHangModel.PhanQuyenChucNang" />
+          <EntitySet Name="TaiKhoans" EntityType="KH2024_WebBanHangModel.TaiKhoan" />
+          <AssociationSet Name="FK_PhanQuyenChucNang_ChucNang" Association="KH2024_WebBanHangModel.FK_PhanQuyenChucNang_ChucNang">
+            <End Role="ChucNang" EntitySet="ChucNangs" />
+            <End Role="PhanQuyenChucNang" EntitySet="PhanQuyenChucNangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PhanQuyenChucNang_TaiKhoan" Association="KH2024_WebBanHangModel.FK_PhanQuyenChucNang_TaiKhoan">
+            <End Role="TaiKhoan" EntitySet="TaiKhoans" />
+            <End Role="PhanQuyenChucNang" EntitySet="PhanQuyenChucNangs" />
+          </AssociationSet>
+          <FunctionImport Name="spQuyenTaiKhoan" ReturnType="Collection(KH2024_WebBanHangModel.spQuyenTaiKhoan_Result)">
+            <Parameter Name="username" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spSanPham_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -253,6 +337,74 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ChucNang">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NhomChucNang" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Action" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Area" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MoTa" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PhanQuyenChucNangs" Relationship="KH2024_WebBanHangModel.FK_PhanQuyenChucNang_ChucNang" FromRole="ChucNang" ToRole="PhanQuyenChucNang" />
+        </EntityType>
+        <EntityType Name="PhanQuyenChucNang">
+          <Key>
+            <PropertyRef Name="Username" />
+            <PropertyRef Name="CodeChucNang" />
+          </Key>
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CodeChucNang" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GhiChu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ChucNang" Relationship="KH2024_WebBanHangModel.FK_PhanQuyenChucNang_ChucNang" FromRole="PhanQuyenChucNang" ToRole="ChucNang" />
+          <NavigationProperty Name="TaiKhoan" Relationship="KH2024_WebBanHangModel.FK_PhanQuyenChucNang_TaiKhoan" FromRole="PhanQuyenChucNang" ToRole="TaiKhoan" />
+        </EntityType>
+        <EntityType Name="TaiKhoan">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="HoVaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="PhanQuyenChucNangs" Relationship="KH2024_WebBanHangModel.FK_PhanQuyenChucNang_TaiKhoan" FromRole="TaiKhoan" ToRole="PhanQuyenChucNang" />
+        </EntityType>
+        <Association Name="FK_PhanQuyenChucNang_ChucNang">
+          <End Type="KH2024_WebBanHangModel.ChucNang" Role="ChucNang" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="KH2024_WebBanHangModel.PhanQuyenChucNang" Role="PhanQuyenChucNang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChucNang">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="PhanQuyenChucNang">
+              <PropertyRef Name="CodeChucNang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PhanQuyenChucNang_TaiKhoan">
+          <End Type="KH2024_WebBanHangModel.TaiKhoan" Role="TaiKhoan" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="KH2024_WebBanHangModel.PhanQuyenChucNang" Role="PhanQuyenChucNang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaiKhoan">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="PhanQuyenChucNang">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="spQuyenTaiKhoan_Result">
+          <Property Type="String" Name="Code" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="NhomChucNang" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Action" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Area" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="MoTa" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="DaChon" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -348,6 +500,48 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ChucNangs">
+            <EntityTypeMapping TypeName="KH2024_WebBanHangModel.ChucNang">
+              <MappingFragment StoreEntitySet="ChucNang">
+                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="NhomChucNang" ColumnName="NhomChucNang" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhanQuyenChucNangs">
+            <EntityTypeMapping TypeName="KH2024_WebBanHangModel.PhanQuyenChucNang">
+              <MappingFragment StoreEntitySet="PhanQuyenChucNang">
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="CodeChucNang" ColumnName="CodeChucNang" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaiKhoans">
+            <EntityTypeMapping TypeName="KH2024_WebBanHangModel.TaiKhoan">
+              <MappingFragment StoreEntitySet="TaiKhoan">
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="HoVaTen" ColumnName="HoVaTen" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spQuyenTaiKhoan" FunctionName="KH2024_WebBanHangModel.Store.spQuyenTaiKhoan">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KH2024_WebBanHangModel.spQuyenTaiKhoan_Result">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="NhomChucNang" ColumnName="NhomChucNang" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+                <ScalarProperty Name="DaChon" ColumnName="DaChon" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -11,6 +11,11 @@
         <EntityTypeShape EntityType="KH2024_WebBanHangModel.DonHang" Width="1.5" PointX="6.625" PointY="1.375" />
         <AssociationConnector Association="KH2024_WebBanHangModel.FK_ChiTietDonHang_DonHang" />
         <AssociationConnector Association="KH2024_WebBanHangModel.FK_DonHang_KhachHang" />
+        <EntityTypeShape EntityType="KH2024_WebBanHangModel.ChucNang" Width="1.5" PointX="0.75" PointY="8.875" />
+        <EntityTypeShape EntityType="KH2024_WebBanHangModel.PhanQuyenChucNang" Width="1.5" PointX="3" PointY="5.875" />
+        <EntityTypeShape EntityType="KH2024_WebBanHangModel.TaiKhoan" Width="1.5" PointX="0.75" PointY="5.875" />
+        <AssociationConnector Association="KH2024_WebBanHangModel.FK_PhanQuyenChucNang_ChucNang" />
+        <AssociationConnector Association="KH2024_WebBanHangModel.FK_PhanQuyenChucNang_TaiKhoan" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

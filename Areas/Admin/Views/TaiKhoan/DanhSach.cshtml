@@ -1,0 +1,35 @@
+﻿@model IEnumerable<WebThucPham.Models.TaiKhoan>
+@{
+    ViewBag.Title = "Danh sách tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/layout-admin.cshtml";
+}
+
+<div class="container">
+<h2>DanhSach</h2>
+    <table class="table">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Username)</th>
+            <th>@Html.DisplayNameFor(model => model.Password)</th>
+            <th>@Html.DisplayNameFor(model => model.HoVaTen)</th>
+            <th>@Html.DisplayNameFor(model => model.SoDienThoai)</th>
+           
+        </tr>
+        @foreach(var item in Model)
+            {
+                <tr>
+                    <td>
+                    <a href="~/Admin/TaiKhoan/ChiTiet?username=@item.Username">
+                        @Html.DisplayFor(modelItem => item.Username)
+                    </a>
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.Password)</td>
+
+                    <td>@Html.DisplayFor(modelItem => item.HoVaTen)</td>
+
+                    <td>@Html.DisplayFor(modelItem => item.SoDienThoai)</td>
+
+                </tr>
+            }
+    </table>
+</div>
+

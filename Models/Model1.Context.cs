@@ -31,6 +31,9 @@ namespace WebThucPham.Models
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
         public virtual DbSet<ChiTietDonHang> ChiTietDonHangs { get; set; }
         public virtual DbSet<DonHang> DonHangs { get; set; }
+        public virtual DbSet<ChucNang> ChucNangs { get; set; }
+        public virtual DbSet<PhanQuyenChucNang> PhanQuyenChucNangs { get; set; }
+        public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
     
         public virtual ObjectResult<spSanPham_Result> spSanPham(Nullable<int> namsx, Nullable<double> donGiaLonHon, Nullable<double> donGiaNhoHon, string tenSanPham)
         {
@@ -68,6 +71,15 @@ namespace WebThucPham.Models
                 new ObjectParameter("thongTin", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spDanhSachDonHang2_Result>("spDanhSachDonHang2", ngayParameter, idKhachHangParameter, thongTinParameter);
+        }
+    
+        public virtual ObjectResult<spQuyenTaiKhoan_Result> spQuyenTaiKhoan(string username)
+        {
+            var usernameParameter = username != null ?
+                new ObjectParameter("username", username) :
+                new ObjectParameter("username", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spQuyenTaiKhoan_Result>("spQuyenTaiKhoan", usernameParameter);
         }
     }
 }
