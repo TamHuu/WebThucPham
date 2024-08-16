@@ -11,6 +11,7 @@ namespace WebThucPham.Areas.Admin.Controllers
     {
         public ActionResult Index()
         {
+            var user = (TaiKhoan)Session["User"];
             return View();
         }
         // GET: Admin/Home
@@ -47,10 +48,22 @@ namespace WebThucPham.Areas.Admin.Controllers
             }
 
             // Đăng nhập thành công
+
+            // Xử lý khi mà tài khoản đúng
+            // 1. Lưu lại session
+            Session["User"] = user;
             return RedirectToAction("Index");
         }
 
         public ActionResult DangXuat()
+        {
+            //1. Xoá session
+            Session["User"] = null;
+            return RedirectToAction("DangNhap");
+        }
+
+
+        public ActionResult KhongDuocPhanQuyen() 
         {
             return View();
         }

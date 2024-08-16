@@ -4,18 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using WebThucPham.App_Start;
 using WebThucPham.Models;
 
 namespace WebThucPham.Areas.Admin.Controllers
 {
     public class SanPhamController : Controller
     {
+    [QuyenNhanVien(Roles="SP_XemDanhSach")]
         public ActionResult DanhSachSanPham(int? namsx, double? donGiaLonHon, double? donGiaNhoHon, string tenSanPham)
         {
-            ViewBag.namsx = namsx;
-
-            // Lấy toàn bộ dữ liệu
+        
             KH2024_WebBanHangEntities db = new KH2024_WebBanHangEntities();
+            ViewBag.namsx = namsx;
             var danhSach = db.SanPhams.ToList();
 
             // Tìm kiếm
@@ -31,10 +32,12 @@ namespace WebThucPham.Areas.Admin.Controllers
 
 
             // Dùng store proc
+
             var kq2 = db.spSanPham(namsx, donGiaLonHon, donGiaNhoHon, tenSanPham).ToList();
             return View(kqTimKiem);
         }
         #region Thêm mới:
+        [QuyenNhanVien(Roles = "SP_ThemMoi")]
         public ActionResult ThemMoi()
         {
             SanPham spMoi = new SanPham();
@@ -56,6 +59,7 @@ namespace WebThucPham.Areas.Admin.Controllers
                 ModelState.AddModelError("NamSanXuat", "Thiếu năm sản xuất");
                 return View();
             }
+
             // Bước 2: Khai báo đối  tượng và gán giá trị
             //SanPham spMoi = new SanPham();
             //spMoi.TenSanPham = TenSanPham; 
