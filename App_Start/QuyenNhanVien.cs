@@ -49,7 +49,7 @@ namespace WebThucPham.App_Start
                     area = "Admin",
                 }));
             }
-                return;
+            return;
         }
 
     }
