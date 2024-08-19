@@ -251,6 +251,7 @@
     <Content Include="assets\js\feather.min.js" />
     <Content Include="assets\js\jquery.counterup.min.js" />
     <Content Include="assets\js\jquery.js" />
+    <Content Include="assets\js\main-scripts.js" />
     <Content Include="assets\js\slick.min.js" />
     <Content Include="assets\js\waypoints.min.js" />
     <Content Include="assets\logo\favicon.png" />
@@ -330,6 +331,7 @@
     <Content Include="Areas\Admin\Views\Home\DangNhap.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Home\KhongDuocPhanQuyen.cshtml" />
+    <Content Include="Areas\Admin\Views\KhachHang\DanhSach.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -361,7 +363,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Views\KhachHang\" />
     <Folder Include="Areas\NhanVien\Controllers\" />
     <Folder Include="Areas\NhanVien\Data\" />
     <Folder Include="Areas\NhanVien\Views\Shared\" />

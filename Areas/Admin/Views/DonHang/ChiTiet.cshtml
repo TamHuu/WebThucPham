@@ -8,7 +8,7 @@
 
 
 <div class="col-md-4">
-    <h2>Đơn hàng: @Model.ID - @Model.NguoiNhan </h2>
+    <h2 style="width:370px">Đơn hàng: @Model.ID - @Model.NguoiNhan </h2>
 
     <table class="table">
         <tr>
@@ -34,7 +34,7 @@
     <a href="~/Admin/DonHang/CapNhat?idDonHang=@Model.ID" class="btn btn-success">Cập nhật</a>
 </div>
 <div class="col-md-8">
-    Sản phẩm đặt mua
+<h2>Sản phẩm đặt mua</h2>
     <table width="100%" class="table table-bordered">
         <thead>
             <tr>
@@ -45,6 +45,7 @@
                 <th>Đơn giá</th>
                 <th>VAT</th>
                 <th>Thành tiền (Gồm VAT)</th>
+                <th>Chức năng</th>
             </tr>
         </thead>
         <tbody>
@@ -73,6 +74,11 @@
                         <td style="text-align:right">
                             @formatVat
                         </td>
+                        <td>
+                            <a href="javascript:void(0)"class="btn btn-success">Sửa</a>
+                            <span>|</span>
+                            <a href="javascript:void(0)"  id="btnXoa"  class="btn btn-danger">Xoá</a>
+                        </td>
                     </tr>
                 }
             }
@@ -87,7 +93,7 @@
                 </tr>
             </tfoot>
     </table>
-    <p>
-        <a href="~/Admin/DonHang/ThemChiTiet?idDonHang=@Model.ID">Thêm sản phẩm</a>
+    <p id="btn-box">
+        <a  class="btn btn-primary" href="~/Admin/DonHang/ThemChiTiet?idDonHang=@Model.ID"  data-iddonhang="@Model.ID">Thêm sản phẩm</a>
     </p>
 </div>

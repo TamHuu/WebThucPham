@@ -36,10 +36,11 @@
         </div>
     </nav>
 
-    <div class="container">
+
         @RenderBody()
-        @RenderSection("script", required: false)
-    </div>
+    <script src="~/assets/js/main-scripts.js"></script>
+        @RenderSection("script",false)
+   
 
 </body>
 </html>

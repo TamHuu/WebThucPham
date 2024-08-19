@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using WebThucPham.Models;
 
@@ -11,10 +8,16 @@ namespace WebThucPham.Areas.Admin.Controllers
     {
         public ActionResult Index()
         {
+            // Kiểm tra nếu người dùng đã đăng nhập
             var user = (TaiKhoan)Session["User"];
+            if (user == null)
+            {
+                return RedirectToAction("DangNhap");
+            }
             return View();
         }
-        // GET: Admin/Home
+
+        // GET: Admin/Home/DangNhap
         public ActionResult DangNhap()
         {
             return View();
@@ -34,38 +37,67 @@ namespace WebThucPham.Areas.Admin.Controllers
             }
 
             // Kiểm tra mật khẩu
-            string formatPass = user.Password?.Trim();
-            if (string.IsNullOrEmpty(formatPass))
-            {
-                ViewBag.error = "Vui lòng nhập mật khẩu.";
-                return View();
-            }
-
-            if (formatPass != password)
+            if (string.IsNullOrEmpty(password) || user.Password?.Trim() != password)
             {
                 ViewBag.error = "Mật khẩu không đúng.";
                 return View();
             }
 
             // Đăng nhập thành công
-
-            // Xử lý khi mà tài khoản đúng
-            // 1. Lưu lại session
             Session["User"] = user;
             return RedirectToAction("Index");
         }
 
         public ActionResult DangXuat()
         {
-            //1. Xoá session
+            // Xóa session khi đăng xuất
             Session["User"] = null;
             return RedirectToAction("DangNhap");
         }
 
-
-        public ActionResult KhongDuocPhanQuyen() 
+        public ActionResult KhongDuocPhanQuyen()
         {
             return View();
+        }
+
+        /// <summary>
+        /// Đăng nhập bằng JavaScript (AJAX)
+        /// </summary>
+        /// <param name="username">Tên tài khoản</param>
+        /// <param name="password">Mật khẩu</param>
+        /// <returns>Kết quả JSON</returns>
+        [HttpPost]
+        public JsonResult DangNhapJS(string username, string password)
+        {
+            // Kiểm tra tài khoản có tồn tại hay không
+            var user = new mapTaiKhoan().ChiTiet(username);
+            if (user == null)
+            {
+                return Json(new
+                {
+                    ketqua = false,
+                    thongbao = "Tài khoản không hợp lệ."
+                });
+            }
+
+            // Kiểm tra mật khẩu có hợp lệ hay không
+            if (string.IsNullOrEmpty(user.Password) || user.Password.Trim() != password)
+            {
+                return Json(new
+                {
+                    ketqua = false,
+                    thongbao = "Mật khẩu không chính xác."
+                });
+            }
+
+            // Lưu lại session khi đăng nhập thành công
+            Session["User"] = user;
+
+            return Json(new
+            {
+                ketqua = true,
+                thongbao = "Đăng nhập thành công."
+            });
         }
     }
 }

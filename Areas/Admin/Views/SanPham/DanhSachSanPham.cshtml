@@ -1,8 +1,13 @@
 ﻿@model List<WebThucPham.Models.SanPham>
 @{
     Layout = "~/Areas/Admin/Views/Shared/layout-admin.cshtml";
-}
 
+}
+<style>
+    .dong_MauNau{
+        background: #d1d1d1
+    }
+</style>
 <h2>List Product</h2>
 
 <div class="col-md-12">
@@ -40,7 +45,8 @@
         <tbody>
             @foreach (var item in Model.OrderByDescending(m => m.ID))
             {
-                <tr>
+
+                <tr data-id="@item.ID" >
                     <td style="text-align:center">@item.ID</td>
                     <td style="text-align:left">@item.TenSanPham</td>
                     <td style="text-align:right">@((item.DonGia ?? 0).ToString("#,0"))</td>
@@ -53,8 +59,8 @@
                     </td>
                     <td style="text-align:left">@item.HetHang</td>
                     <td style="text-align:left">
-                    <img src="@item.EmailNCC" style="width:50px;height:50px"/>
-                    
+                        <img src="@item.EmailNCC" style="width:50px;height:50px" />
+
                     </td>
                     <td style="text-align:left">@item.SoDienThoaiNCC</td>
                     <td style="text-align:left;width:160px">
@@ -62,7 +68,7 @@
                         <span> | </span>
                         <a href="javascript:void(0)" class="btn btn-danger" onclick="Delete(@item.ID)">Xoá</a>
                         <span> | </span>
-                        <a  class="btn btn-secondary" href="/Admin/SanPham/CapNhatAnh?id=@item.ID">Cập nhật  ảnh</a>
+                        <a class="btn btn-secondary" href="/Admin/SanPham/CapNhatAnh?id=@item.ID">Cập nhật  ảnh</a>
                     </td>
                 </tr>
             }
@@ -75,6 +81,16 @@
 
     <script>
 
+        $('tr').each(function (thuTu,item) {
+            //This moi row
+            if (thuTu % 2 == 1) {
+                $(this).addClass("dong_MauNau");
+            }
+            else {
+                $(this).removeClass("dong_MauNua");
+            }
+
+        })
         function Delete(id) {
             if (confirm("Xoá dữ liệu?") == true) {
                 //Thực hiện xoá
@@ -84,6 +100,8 @@
                 //Không xoá
             }
         }
+
+
     </script>
 
 }
