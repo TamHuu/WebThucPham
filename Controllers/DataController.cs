@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Security;
+using WebThucPham.App_Start;
 using WebThucPham.Models;
 
 namespace WebThucPham.Controllers
@@ -44,6 +46,31 @@ namespace WebThucPham.Controllers
             return Json(new
             {
 
+            });
+        }
+
+
+        ///Token
+        ///- Được cấp theo user và passworrd
+        ///- Được mã hoá
+        ///- Có thời hạn sử dụng
+        /// jwt
+        /// owin => source này dùng 
+        /// install
+        /// - Microsoft.Owin
+        /// - Microsoft.Owin.Host.SystemWeb
+        /// - Microsoft.Owin.Security
+        /// - Microsoft.Owin.Security.OAuth
+
+
+        [CheckToken(Roles = "User")]
+
+        public IHttpActionResult Get()
+        {
+            return Json(new
+            {
+                result = true,
+                status = "Bạn đã lấy thông tin"
             });
         }
     }
