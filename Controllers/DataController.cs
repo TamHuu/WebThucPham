@@ -63,7 +63,7 @@ namespace WebThucPham.Controllers
         /// - Microsoft.Owin.Security.OAuth
 
 
-        [CheckToken(Roles = "User")]
+        //[CheckToken(Roles = "User")]
 
         public IHttpActionResult Get()
         {

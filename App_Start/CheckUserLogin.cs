@@ -31,7 +31,7 @@ namespace WebThucPham.App_Start
             }
 
             //Check mật khẩu
-            if (user.Password.Trim() != context.Password)
+            if (user.Password != context.Password)
             {
                 context.SetError("Lỗi đăng nhập", "Mật khẩu không đúng");
                 return;
