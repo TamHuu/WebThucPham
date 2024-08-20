@@ -48,7 +48,11 @@
 
                 <tr data-id="@item.ID" >
                     <td style="text-align:center">@item.ID</td>
-                    <td style="text-align:left">@item.TenSanPham</td>
+                    <td style="text-align:left">
+                        <a href="~/Admin/SanPham/ChiTiet?id=@item.ID">
+                            @item.TenSanPham
+                        </a>
+                   </td>
                     <td style="text-align:right">@((item.DonGia ?? 0).ToString("#,0"))</td>
                     <td style="text-align:center">@item.NamSanXuat</td>
                     <td style="text-align:left">@item.MoTa</td>

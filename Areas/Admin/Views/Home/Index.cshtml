@@ -11,6 +11,10 @@
         <h4>Số lượng sản phẩm theo năm</h4>
         <canvas id="myChart"></canvas>
     </div>
+    <div class="col-md-6">
+        <h4>Biểu đồ Pie</h4>
+        <canvas id="myChart2"></canvas>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -21,35 +25,39 @@
 }
 
 <script>
-    // Khai báo đối tượng biểu đồ
     const ctx = document.getElementById('myChart').getContext('2d');
+    const ctx2 = document.getElementById('myChart2').getContext('2d');
 
-    // Đổ dữ liệu store vào 2 mảng dưới đây
     var TieuDe = [];
     var GiaTri = [];
     var GiaTri2 = [];
- @foreach (var item in datas)
-{
-    @:TieuDe.push('@(item.NamSanXuat ?? 0)');
-    @:GiaTri.push(@(item.SoLuong ?? 0));
-    @:GiaTri2.push(@(item.SoLuong ?? 0) + 10);
-}
 
-    // Lệnh tạo biểu đồ
+    @foreach (var item in datas)
+    {
+        @:TieuDe.push('@(item.NamSanXuat ?? 0)');
+        @:GiaTri.push(@(item.SoLuong ?? 0));
+        @:GiaTri2.push(@(item.SoLuong ?? 0) + 10);
+    }
+
+    // Biểu đồ cột (Bar chart)
     new Chart(ctx, {
-        type: 'bar', // Kiểu biểu đồ
+        type: 'bar',
         data: {
             labels: TieuDe,
             datasets: [
                 {
-                label: 'SP1',
-                data: GiaTri,
-                borderWidth: 1
+                    label: 'SP1',
+                    data: GiaTri,
+                    borderWidth: 1,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
                 },
                 {
                     label: 'SP2',
                     data: GiaTri2,
-                    borderWidth: 1
+                    borderWidth: 1,
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
                 },
             ]
         },
@@ -62,4 +70,39 @@
             responsive: true,
         }
     });
+
+    // Mảng chứa các màu sắc khác nhau cho Pie chart
+    const pieColors = [
+        '#FF6384',
+        '#36A2EB',
+        '#FFCE56',
+        '#4BC0C0',
+        '#9966FF',
+        '#FF9F40',
+        '#E7E9ED'
+    ];
+
+    // Cấu hình biểu đồ Pie với các màu sắc khác nhau
+    const pieConfig = {
+        type: 'pie',
+        data: {
+            labels: TieuDe,
+            datasets: [{
+                data: GiaTri, // Dữ liệu cho biểu đồ pie
+                backgroundColor: pieColors.slice(0, TieuDe.length), // Chọn màu dựa trên số lượng dữ liệu
+                hoverBackgroundColor: pieColors.slice(0, TieuDe.length).map(color => Chart.helpers.color(color).alpha(0.75).rgbString())
+            }]
+        },
+        options: {
+            plugins: {
+                legend: { display: true },
+                tooltip: { enabled: true },
+            },
+            responsive: true,
+        }
+    };
+
+    // Tạo biểu đồ Pie
+    new Chart(ctx2, pieConfig);
+
 </script>

@@ -77,7 +77,7 @@
           <Property Name="TenSanPham" Type="nvarchar" MaxLength="200" />
           <Property Name="NamSanXuat" Type="int" />
           <Property Name="DonGia" Type="float" />
-          <Property Name="MoTa" Type="nvarchar" MaxLength="200" />
+          <Property Name="MoTa" Type="nvarchar(max)" />
           <Property Name="ThoiGianTao" Type="datetime" />
           <Property Name="MauSac" Type="nvarchar" MaxLength="50" />
           <Property Name="PhanLoai" Type="nvarchar" MaxLength="500" />
@@ -247,7 +247,7 @@
           <Property Name="TenSanPham" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="NamSanXuat" Type="Int32" />
           <Property Name="DonGia" Type="Double" />
-          <Property Name="MoTa" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ThoiGianTao" Type="DateTime" Precision="3" />
           <Property Name="MauSac" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PhanLoai" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />

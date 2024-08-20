@@ -1,0 +1,70 @@
+﻿@model WebThucPham.Models.SanPham
+
+@{
+    ViewBag.Title = "ChiTiet";
+    Layout = "~/Areas/Admin/Views/Shared/layout-admin.cshtml";
+}
+
+<h2>ChiTiet</h2>
+
+<div class="col-md-4">
+    <h4>SanPham</h4>
+    <hr />
+    <dl class="dl-horizontal">
+       
+
+       
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ThoiGianTao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ThoiGianTao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MauSac)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MauSac)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhanLoai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhanLoai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HetHang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HetHang)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailNCC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailNCC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoDienThoaiNCC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoDienThoaiNCC)
+        </dd>
+
+    </dl>
+</div>
+<div class="col-md-8">
+  @Html.Raw(Model.MoTa);
+</div>

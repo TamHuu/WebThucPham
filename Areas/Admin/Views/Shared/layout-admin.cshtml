@@ -27,9 +27,10 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">
-                    @(user != null? user.HoVaTen:"")
-                </a>
+                <li>
+                    <a href="#">
+                        @(user != null? user.HoVaTen:"")
+                    </a>
                 </li>
                 <li><a href="~/Admin/Home/DangXuat"><span class="glyphicon glyphicon-log-in"></span> Đăng xuất</a></li>
             </ul>
@@ -37,10 +38,12 @@
     </nav>
 
 
-        @RenderBody()
+    @RenderBody()
+    <script src="~/assets/plugin/ckfinder/ckfinder.js"></script>
+    <script src="~/assets/plugin/ckeditor/ckeditor.js"></script>
     <script src="~/assets/js/main-scripts.js"></script>
-        @RenderSection("script",false)
-   
+    @RenderSection("script", false)
+
 
 </body>
 </html>

@@ -13,5 +13,10 @@ namespace WebThucPham.Models
         {
             return db.SanPhams.ToList();
         }
+
+        public SanPham ChiTiet(int idDonHang)
+        {
+            return db.SanPhams.Find(idDonHang);
+        }
     }
 }

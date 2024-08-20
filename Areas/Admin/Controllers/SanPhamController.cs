@@ -36,6 +36,13 @@ namespace WebThucPham.Areas.Admin.Controllers
             var kq2 = db.spSanPham(namsx, donGiaLonHon, donGiaNhoHon, tenSanPham).ToList();
             return View(kqTimKiem);
         }
+
+
+        public ActionResult ChiTiet(int id)
+        {
+            return View(new mapSanPham().ChiTiet(id));
+        }
+
         #region Thêm mới:
         [QuyenNhanVien(Roles = "SP_ThemMoi")]
         public ActionResult ThemMoi()
@@ -105,6 +112,8 @@ namespace WebThucPham.Areas.Admin.Controllers
         }
         //3. Hàm lưu cập nhật
         [HttpPost]
+
+        [ValidateInput(false)]
         public ActionResult CapNhat(SanPham model)
         {
             //3.1 Tìm đối tượng cần cập nhật
