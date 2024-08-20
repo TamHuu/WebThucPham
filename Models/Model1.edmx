@@ -90,7 +90,7 @@
             <PropertyRef Name="Username" />
           </Key>
           <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="nchar" MaxLength="10" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="HoVaTen" Type="nvarchar" MaxLength="50" />
           <Property Name="SoDienThoai" Type="nchar" MaxLength="10" />
         </EntityType>
@@ -148,6 +148,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="rptSanPhamTheoNam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spDanhSachDonHang2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ngay" Type="datetime" Mode="In" />
           <Parameter Name="idKhachHang" Type="int" Mode="In" />
@@ -227,8 +228,9 @@
             <End Role="PhanQuyenChucNang" EntitySet="PhanQuyenChucNangs" />
           </AssociationSet>
           <FunctionImport Name="spQuyenTaiKhoan" ReturnType="Collection(KH2024_WebBanHangModel.spQuyenTaiKhoan_Result)">
-            <Parameter Name="username" Mode="In" Type="String" />
+          <Parameter Name="username" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="rptSanPhamTheoNam" ReturnType="Collection(KH2024_WebBanHangModel.rptSanPhamTheoNam_Result)" />
         </EntityContainer>
         <ComplexType Name="spSanPham_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -364,7 +366,7 @@
             <PropertyRef Name="Username" />
           </Key>
           <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HoVaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="PhanQuyenChucNangs" Relationship="KH2024_WebBanHangModel.FK_PhanQuyenChucNang_TaiKhoan" FromRole="TaiKhoan" ToRole="PhanQuyenChucNang" />
@@ -404,6 +406,10 @@
           <Property Type="String" Name="Area" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="MoTa" Nullable="true" MaxLength="500" />
           <Property Type="Int32" Name="DaChon" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="rptSanPhamTheoNam_Result">
+          <Property Type="Int32" Name="NamSanXuat" Nullable="true" />
+          <Property Type="Int32" Name="SoLuong" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -539,6 +545,14 @@
                 <ScalarProperty Name="Area" ColumnName="Area" />
                 <ScalarProperty Name="MoTa" ColumnName="MoTa" />
                 <ScalarProperty Name="DaChon" ColumnName="DaChon" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="rptSanPhamTheoNam" FunctionName="KH2024_WebBanHangModel.Store.rptSanPhamTheoNam">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KH2024_WebBanHangModel.rptSanPhamTheoNam_Result">
+                <ScalarProperty Name="NamSanXuat" ColumnName="NamSanXuat" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

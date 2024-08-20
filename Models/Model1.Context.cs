@@ -81,5 +81,10 @@ namespace WebThucPham.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spQuyenTaiKhoan_Result>("spQuyenTaiKhoan", usernameParameter);
         }
+    
+        public virtual ObjectResult<rptSanPhamTheoNam_Result> rptSanPhamTheoNam()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<rptSanPhamTheoNam_Result>("rptSanPhamTheoNam");
+        }
     }
 }

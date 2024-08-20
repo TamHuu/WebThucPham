@@ -1,8 +1,65 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Admin";
     Layout = "~/Areas/Admin/Views/Shared/layout-admin.cshtml";
 }
 
+<script src="https://www.gstatic.com/charts/loader.js"></script>
 <h2>Xin chào đến với page admin</h2>
 
+<div class="container">
+    <div class="col-md-6">
+        <h4>Số lượng sản phẩm theo năm</h4>
+        <canvas id="myChart"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+@{
+    var db = new WebThucPham.Models.KH2024_WebBanHangEntities();
+    var datas = db.rptSanPhamTheoNam().ToList();
+}
+
+<script>
+    // Khai báo đối tượng biểu đồ
+    const ctx = document.getElementById('myChart').getContext('2d');
+
+    // Đổ dữ liệu store vào 2 mảng dưới đây
+    var TieuDe = [];
+    var GiaTri = [];
+    var GiaTri2 = [];
+ @foreach (var item in datas)
+{
+    @:TieuDe.push('@(item.NamSanXuat ?? 0)');
+    @:GiaTri.push(@(item.SoLuong ?? 0));
+    @:GiaTri2.push(@(item.SoLuong ?? 0) + 10);
+}
+
+    // Lệnh tạo biểu đồ
+    new Chart(ctx, {
+        type: 'bar', // Kiểu biểu đồ
+        data: {
+            labels: TieuDe,
+            datasets: [
+                {
+                label: 'SP1',
+                data: GiaTri,
+                borderWidth: 1
+                },
+                {
+                    label: 'SP2',
+                    data: GiaTri2,
+                    borderWidth: 1
+                },
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            responsive: true,
+        }
+    });
+</script>
